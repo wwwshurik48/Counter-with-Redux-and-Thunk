@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {AppStateType} from "./store";
 
 const initialState = {
-    value: 1000
+    value: 0
 }
 
 type InitialStateType = typeof initialState;
@@ -15,7 +15,7 @@ export const counterReducer = (state: InitialStateType = initialState, action: A
             }
             case "SET-VALUE-LOCAL-STORAGE":
                 return {
-                    ...state, value: state.value
+                    ...state, value: action.value
                 }
         default:
             return state
@@ -28,8 +28,8 @@ type ActionType = IncValuesType | SetValueFromLocalStorageType;
 export type IncValuesType = ReturnType<typeof incCounterValueAC>
 export const incCounterValueAC = () => ({type: 'INC-COUNTER'} as const);
 
-export type SetValueFromLocalStorageType = ReturnType<typeof setValuesFromLocalStorageAC>
-export const setValuesFromLocalStorageAC = (value: number) => ({type: 'SET-VALUE-LOCAL-STORAGE', value} as const);
+export type SetValueFromLocalStorageType = ReturnType<typeof setValueFromLocalStorageAC>
+export const setValueFromLocalStorageAC = (value: number) => ({type: 'SET-VALUE-LOCAL-STORAGE', value} as const);
 
 //THUNK
 
@@ -39,10 +39,10 @@ export const incValuesTC = () => (dispatch: Dispatch, getState: () => AppStateTy
     dispatch(incCounterValueAC())
 }
 
-export const setValuesFromLocalStorageTC = () => (dispatch: Dispatch) => {
+export const setValueFromLocalStorageTC = () => (dispatch: Dispatch) => {
     let valueAsString = localStorage.getItem('counterValue')
     if (valueAsString) {
         let newValue = JSON.parse(valueAsString)
-        dispatch(setValuesFromLocalStorageAC(newValue))
+        dispatch(setValueFromLocalStorageAC(newValue))
     }
 }

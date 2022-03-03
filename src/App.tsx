@@ -1,22 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./bll/store";
 import {
-    incCounterValueAC,
-    incValuesTC,
-    setValuesFromLocalStorageAC,
-    setValuesFromLocalStorageTC
+    incValuesTC, setValueFromLocalStorageTC
 } from "./bll/reducer-counter";
 
 function App() {
 
     const value = useSelector<AppStateType, number>(state => state.counter.value)
+    debugger
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setValuesFromLocalStorageTC())
+        dispatch(setValueFromLocalStorageTC())
     }, [])
 
     const incHandler = () => {
